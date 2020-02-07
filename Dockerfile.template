@@ -1,5 +1,4 @@
-FROM balenalib/raspberrypi3-node:8-stretch-build-20190215
-
+FROM balenalib/%%BALENA_MACHINE_NAME%%-node:12-stretch-build
 WORKDIR /usr/src/app
 
 COPY ./package.json ./yarn.lock .npmrc ./
@@ -24,7 +23,7 @@ RUN yarn install --production
 # Add rpi-gpio, this is done here because it crashes on dev machines
 RUN yarn add git+https://github.com/adipascu/rpi-gpio.js.git#590b4ee074b7dcddec47da3627350d3d6c99a843
 
-FROM balenalib/raspberrypi3-node:8-stretch-run-20190215
+FROM balenalib/%%BALENA_MACHINE_NAME%%-node:12-stretch-run
 
 RUN apt-get update && apt-get install -y \
 xorg \
