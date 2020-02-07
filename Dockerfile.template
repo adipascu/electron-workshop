@@ -38,4 +38,4 @@ COPY --from=0 /usr/src/app/build ./build
 
 # ENV INITSYSTEM=on
 
-CMD ["startx", "/app/start.sh", "--", "-nocursor"]
+CMD ["startx", "/usr/src/app/start.sh", "--", "-nocursor"]
