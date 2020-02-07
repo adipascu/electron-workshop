@@ -34,8 +34,8 @@ COPY --from=0 /usr/src/app/node_modules ./node_modules
 COPY --from=0 /usr/src/app/build ./build
 
 # Restart the app inside systemd
-RUN sed -i '/Restart=/c\Restart=always' /etc/systemd/system/launch.service
+# RUN sed -i '/Restart=/c\Restart=always' /etc/systemd/system/launch.service
 
-ENV INITSYSTEM=on
+# ENV INITSYSTEM=on
 
 CMD ["startx", "/app/start.sh", "--", "-nocursor"]
