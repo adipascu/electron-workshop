@@ -1,5 +1,5 @@
 FROM balenalib/%%BALENA_MACHINE_NAME%%-node:12-stretch-build
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY ./package.json ./package-lock.json .npmrc ./
 
@@ -14,7 +14,7 @@ RUN npm run build:prod
 RUN npm install --production
 
 FROM balenalib/%%BALENA_MACHINE_NAME%%-node:12-stretch-run
-WORKDIR /usr/src/app
+WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
   xorg \
@@ -29,13 +29,13 @@ RUN apt-get update && apt-get install -y \
 COPY ./package.json ./start.sh ./main.js ./
 
 # Add prebuilt node_modules
-COPY --from=0 /usr/src/app/node_modules ./node_modules
+COPY --from=0 /app/node_modules ./node_modules
 # Add prebuilt javascript render codebase
-COPY --from=0 /usr/src/app/build ./build
+COPY --from=0 /app/build ./build
 
 # Restart the app inside systemd
 # RUN sed -i '/Restart=/c\Restart=always' /etc/systemd/system/launch.service
 
 # ENV INITSYSTEM=on
 
-CMD ["startx", "/usr/src/app/start.sh", "--", "-nocursor"]
+CMD ["startx", "/app/start.sh", "--", "-nocursor"]
