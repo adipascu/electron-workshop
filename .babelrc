@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "electron": "8.0"
+        },
+        "modules": false,
+        "useBuiltIns": "entry",
+        "corejs": "3.6"
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "plugins": ["@babel/plugin-transform-runtime", "react-hot-loader/babel"]
+}
